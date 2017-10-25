@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+
+            
+            <form onsubmit="uploadFile();">
+                <input name="picture" type="file" id="picture">
+                <input type="submit" value="Submit photo">
+            </form>
+            
+
+    
+            <script>
+            // Add javascript /jquery
+            
+            $(function() {
+                function uploadFile(){
+                    var blobFile = $('#picture').files[0];
+                    var formData = new FormData();
+                    formData.append("fileToUpload", blobFile);
+                    console.log("test")
+                    $.ajax({
+                    url: "/image",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        // .. do something
+                        console.log(data)
+                        console.log("success");
+                    },
+                    error: function(jqXHR, textStatus, errorMessage) {
+                        console.log(errorMessage); // Optional
+                        console.log("ERORR");
+                    }
+                    });
+                };
+            });
+
+            // function upload(callback){
+            //     var input = document.querySelector('input[type=file]');
+            //     file = input.files[0] 
+
+            //     //if file isn't an image nothing happens
+            //     if (!file || !file.type.match(/image.* /)) return;
+                
+            //     var fd = new FormData();
+            //     fd.append("file", file);
+
+            //     var xhr = new XMLHttpRequest();
+            //     xhr.open("POST", "localhost:5000/image");
+            //     xhr.onloadend = function(e) {
+            //         //response of the upload
+            //         xhr.responseText;
+            //         if(callback){
+            //             callback();
+            //         }
+            //     }
+            // }
+            
+            </script>
+    </body>
+
+</html>
